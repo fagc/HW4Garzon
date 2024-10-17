@@ -1,5 +1,5 @@
 /*
- * *** YOUR NAME GOES HERE / YOUR SECTION NUMBER ***
+ * *** Francisco Garzon / COMP 400 C ***
  *
  * This HashingProblems object contains three methods / problems that you must
  * complete utilize the HashMap object within the Java's Collection Framework Library.
@@ -33,15 +33,23 @@ class HashingProblems {
 
     public double getAverage(HashMap<Integer, Integer> map, int[] array) {
 
-        /*
-         * ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOU NAME AT TOP OF FILE
-         *
-         * Note: if NO values found in common between the HashMap and supplied array,
-         * returning 0.0 is NOT correct, as that is not the average value. Whereas
-         * returning 0.0/0.0 IS correct (which would return a non-number).
-         */
+        // we gotta compute average of values for keys that are in both map and array
+        double totalSum = 0;
+        int keyCount = 0;
+        for (int currentKey : array){
+            if (map.containsKey(currentKey)){
+                totalSum += map.get(currentKey);
+                keyCount += 1;
 
-         return 0.0 / 0.0;
+            }
+
+        }
+        if (keyCount == 0){
+            // return nan cuz no matching keys
+            return 0.0 / 0.0;
+        }
+
+        return totalSum / keyCount;
   }
 
 
@@ -56,11 +64,12 @@ class HashingProblems {
     
       ArrayList<String> result = new ArrayList<>();
 
-      /*
-       * ADD YOUR CODE HERE
-       *
-       * Hint: Consider iterating over the HashMap using the keySet method.
-       */
+      // we need to collect values where keys are odd numbers
+      for (Integer mapKey : map.keySet()){
+          if (mapKey % 2 != 0){
+              result.add(map.get(mapKey));
+          }
+      }
 
 
       return result;
@@ -106,11 +115,24 @@ class HashingProblems {
 
   public int twoSums(int[] numbers, int k) {
 
-      /*
-       * ADD YOUR CODE HERE
-       */
+      // first we count how many times k shows up as dif betwn numbers
+      int kTimes = 0;
+      HashSet<Integer> numSet = new HashSet<>();
 
-      return -1;
+      // adding all numbers to set for faster lookup
+      for (int n : numbers){
+          numSet.add(n);
+      }
+
+      // checking for each number if number - k is in set
+      for (int n : numbers){
+          int targetNum = n - k;
+          if (numSet.contains(targetNum)){
+              kTimes += 1;
+          }
+      }
+
+      return kTimes;
   }
 
 } /* end class HashingProblems */
